@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        TOMCAT_HOME = "C:/apache-tomcat-10.1.19"   //  adaptez selon votre chemin
+        TOMCAT_HOME = "C:/apache-tomcat-10.1.19"
     }
 
     stages {
@@ -20,26 +20,26 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                bat 'mvn package'
+                sh 'mvn package'
             }
         }
 
         stage('Deploy to Tomcat') {
             steps {
-                bat '''
-                copy target\\*.war %TOMCAT_HOME%\\webapps\\
+                sh '''
+                cp target/*.war $TOMCAT_HOME/webapps/
                 '''
             }
         }
@@ -47,10 +47,10 @@ pipeline {
 
     post {
         success {
-            echo 'Déploiement réussi !'
+            echo 'Déploiement réussi 🚀'
         }
         failure {
-            echo 'Échec du pipeline !'
+            echo 'Échec du pipeline ❌'
         }
     }
 }
