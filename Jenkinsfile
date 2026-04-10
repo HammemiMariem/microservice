@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        TOMCAT_HOME = "C:/apache-tomcat-9.0.0"   //  adaptez selon votre chemin
+        TOMCAT_HOME = "C:/apache-tomcat-10.1.19"   //  adaptez selon votre chemin
     }
 
     stages {
