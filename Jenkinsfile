@@ -20,19 +20,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh 'cd country-service && mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh 'cd country-service && mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                sh 'mvn package'
+                sh 'cd country-service && mvn package'
             }
         }
 
@@ -47,10 +47,10 @@ pipeline {
 
     post {
         success {
-            echo 'Déploiement réussi 🚀'
+            echo 'Déploiement réussi !'
         }
         failure {
-            echo 'Échec du pipeline ❌'
+            echo 'Échec du pipeline !'
         }
     }
 }
