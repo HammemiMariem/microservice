@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        TOMCAT_HOME = "C:/apache-tomcat-10.1.19"
+        TOMCAT_HOME = "/home/mariem/tomcat/webapps"
     }
 
     stages {
