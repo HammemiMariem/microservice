@@ -2,52 +2,48 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'
-        jdk 'Java'
-    }
-
-    environment {
-        TOMCAT_HOME = "/home/mariem/tomcat"
+        maven 'M2_HOME'
+        jdk 'JDK21'
     }
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout code') {
             steps {
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/HammemiMariem/microservice.git'
             }
         }
 
-        stage('Build') {
+        stage('Compile code') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn compile'
             }
         }
 
-        stage('Test') {
+        stage('Test code') {
             steps {
                 sh 'mvn test'
             }
-        }
-
-        stage('Package') {
-            steps {
-                sh 'mvn package'
+            post {
+                success {
+                    junit allowEmptyResults: true,
+                          testResults: '**/target/surefire-reports/*.xml'
+                }
             }
         }
 
-        stage('Deploy to Tomcat') {
+        stage('Package code') {
             steps {
-                sh '''
-                cp target/*.war $TOMCAT_HOME/webapps/
-                '''
+                sh 'mvn package -DskipTests'
             }
         }
+
     }
 
     post {
         success {
-            echo 'Déploiement réussi !'
+            echo 'Pipeline terminé avec succès !'
         }
         failure {
             echo 'Échec du pipeline !'
