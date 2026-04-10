@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        TOMCAT_HOME = "/home/mariem/tomcat/webapps"
+        TOMCAT_HOME = "/home/mariem/tomcat"
     }
 
     stages {
@@ -20,19 +20,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'cd country-service && mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'cd country-service && mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                sh 'cd country-service && mvn package'
+                sh 'mvn package'
             }
         }
 
